@@ -48,7 +48,6 @@ def select():
     cursor.execute(sql, (nombusuario,))
     datos = cursor.fetchone() 
     conn.commit() 
-  
     if datos[0] == 'Admin' and datos[1] == 'super':
         sql = "SELECT * FROM colegio.alumno;"
         conn = mysql.connection
@@ -56,12 +55,9 @@ def select():
         cursor.execute(sql) 
         db_alumno = cursor.fetchall()
         for alumno in db_alumno:
-            print(alumno[0])
+            print(alumno)
         cursor.close()  
         return render_template('colegio/index.html', alumno = db_alumno)
-        #        return render_template('colegio/homeAdmin.html') 
-        #else: 
-        #    return render_template('colegio/homeOthersUsers.html')
   
 #FUNCION PARA MOSTRAR LA DATA DE ALUMNOS 
 @app.route('/index') 
@@ -91,7 +87,7 @@ def index():
     cursor.close()
 
     # Devolvemos código HTML para ser renderizado
-    return render_template('colegio/index.html', alumno=db_alumno)
+    return render_template('colegio/index.html', alumno = db_alumno)
 
 
 #--------------------------------------------------------------------
@@ -102,23 +98,13 @@ def destroy(idalumno):
     cursor = conn.cursor()
     cursor.execute("DELETE FROM `colegio`.`alumno` WHERE idalumno=%s", (idalumno,))
     conn.commit()
-    
-    sql = "SELECT * FROM colegio.alumno;"
-    conn = mysql.connection
-    cursor = conn.cursor() 
-    cursor.execute(sql) 
-    conn.commit()
-    db_alumno = cursor.fetchall()
-    for alumno in db_alumno:
-        print(alumno[0])
     cursor.close()
-    return render_template('colegio/index.html', alumno=db_alumno)
+    return redirect('/index')
 
 #--------------------------------------------------------------------
 # Ruta para actualizar los datos de un Alumno
 @app.route('/update', methods=['POST'])
 def update():
-    _idalumno = request.form['txtidalumno']
     _nombalumno = request.form['txtnombalumno']
     _apellidoalum = request.form['txtapellidoalum']
     _dnialumno = request.form['txtdnialumno']
@@ -126,13 +112,15 @@ def update():
     _idrepresentante = request.form['txtidrepresentante']  
     _idcurso= request.form['txtidcurso']
     _fotoalumno = request.files['txtfotoalumno']
+    _idalumno = request.form['txtidalumno']
     
     conn = mysql.connection
     cursor = conn.cursor()
-    # Actualización de nombre y director
+    
     sql = "UPDATE colegio.alumno SET nombalumno=%s, apellidoalum=%s, dnialumno=%s, emailalumno=%s, idrepresentante=%s, idcurso=%s, fotoalumno=%s WHERE idalumno=%s"
-    params = ( _idalumno, _nombalumno, _apellidoalum, _dnialumno, _emailalumno, _idrepresentante,   _idcurso, _fotoalumno )
+    params = (  _nombalumno, _apellidoalum, _dnialumno, _emailalumno, _idrepresentante,   _idcurso, _fotoalumno, _idalumno )
     cursor.execute(sql, params)
+    
     # Actualización de la foto si se proporciona una nueva
     if _fotoalumno.filename != '':
         # Guardamos la foto con un nombre único basado en el tiempo
@@ -149,16 +137,10 @@ def update():
             if os.path.exists(rutaFotoAnterior):
                 os.remove(rutaFotoAnterior)
             # Actualizamos la base de datos con el nuevo nombre de la foto
-            cursor.execute("UPDATE colegio.alumno SET fotoalumno=%s WHERE idalumno=%s", (nuevoNombreFoto, _idalumno))
-    conn.commit()
-  
-    cursor.execute("SELECT * FROM colegio.alumno")
-    db_alumnos = cursor.fetchall()
+        cursor.execute("UPDATE colegio.alumno SET fotoalumno=%s WHERE idalumno=%s", (nuevoNombreFoto, _idalumno))
     conn.commit()
     cursor.close()
-    return render_template('colegio/index.html',alumnos=db_alumnos )
-   
-
+    return redirect('/index')
 
 #--------------------------------------------------------------------
 # FUNCION PARA EDITAR UN ALUMNO
@@ -166,8 +148,9 @@ def update():
 def edit(idalumno):
     conn = mysql.connection  # Obtener la conexión a la base de datos
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM colegio.alumno WHERE idalumno=%s", (idalumno,))
+    cursor.execute("SELECT * FROM `colegio`.`alumno` WHERE idalumno=%s", (idalumno,))
     alumnos = cursor.fetchall()
+    print(alumnos)
     cursor.close()
     return render_template('colegio/edit.html', alumnos=alumnos)
 
@@ -212,18 +195,11 @@ def storage():
     cursor = conn.cursor()   # En cursor vamos a realizar las operaciones
     cursor.execute(sql, datos)  # Ejecutamos la sentencia SQL en el cursor
     conn.commit()  # Hacemos el commit
-    # cursor.close()
-    sql = "SELECT * FROM colegio.alumno;"
-    conn = mysql.connection
-    cursor = conn.cursor() 
-    cursor.execute(sql) 
-    db_alumno = cursor.fetchall()
-    for alumno in db_alumno:
-        print(alumno[0])
+   
+   
     cursor.close()
-    return render_template('colegio/index.html', alumno=db_alumno)
-    # Redirigimos a la ruta principal
-    #return redirect('/')
+    return redirect('/index')
+   
 
 
 #--------------------------------------------------------------------

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 30-06-2024 a las 19:43:50
+-- Tiempo de generación: 30-06-2024 a las 23:58:10
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -48,6 +48,16 @@ CREATE TABLE `curso` (
   `idcurso` int(11) NOT NULL,
   `nombcurso` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `curso`
+--
+
+INSERT INTO `curso` (`idcurso`, `nombcurso`) VALUES
+(1, '1º A  COMUNICACIONES'),
+(2, '1º B  ECONOMIA'),
+(3, '2º A  COMUNICACIONES'),
+(4, '2º B  ECONOMIA');
 
 -- --------------------------------------------------------
 
@@ -105,6 +115,14 @@ CREATE TABLE `representante` (
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `representante`
+--
+
+INSERT INTO `representante` (`idrepresentante`, `nombrerep`, `apellidorep`, `dnirep`, `telefonorep`, `direccionrep`, `email`) VALUES
+(1, 'MACARENA', 'MATA', '85678908', '1123456799', 'RIVADAVIA', 'MACA@GMAIL.COM'),
+(2, 'ROSA', 'MARTINEZ', '80999000', '1122223333', 'FLORESTA', 'RMART33@GMAIL.COM');
+
 -- --------------------------------------------------------
 
 --
@@ -115,6 +133,14 @@ CREATE TABLE `usuario` (
   `nombusuario` varchar(50) NOT NULL,
   `claveusuario` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`nombusuario`, `claveusuario`) VALUES
+('Admin', 'super'),
+('gloria.carmona', '1234');
 
 --
 -- Índices para tablas volcadas
@@ -168,13 +194,13 @@ ALTER TABLE `representante`
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `idalumno` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idalumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT de la tabla `curso`
 --
 ALTER TABLE `curso`
-  MODIFY `idcurso` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idcurso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
@@ -192,7 +218,7 @@ ALTER TABLE `profesor`
 -- AUTO_INCREMENT de la tabla `representante`
 --
 ALTER TABLE `representante`
-  MODIFY `idrepresentante` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idrepresentante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas

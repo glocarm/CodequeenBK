@@ -1,7 +1,7 @@
-{% include 'header.html' %} {% for alumno in alumno %}
+{% include 'header.html' %} {% for alumno in alumnos %}
 <form method="post" action="/update" enctype="multipart/form-data">
   ID:
-  <input type="text" value="{{ alumno[0] }}" name="txtidalumno" id="txtidalumno" />
+  <input type="text" value="{{ alumno[0] }}" name="txtidalumno" id="txtidalumno"/>
   Nombre:
   <input
     type="text"
