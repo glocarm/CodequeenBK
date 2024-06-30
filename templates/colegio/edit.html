@@ -1,0 +1,65 @@
+{% include 'header.html' %} {% for alumno in alumno %}
+<form method="post" action="/update" enctype="multipart/form-data">
+  ID:
+  <input type="text" value="{{ alumno[0] }}" name="txtidalumno" id="txtidalumno" />
+  Nombre:
+  <input
+    type="text"
+    value="{{ alumno[1] }}"
+    name="txtnombalumno"
+    id="txtnombalumno"
+  /><br />
+  Apellido:
+  <input
+    type="text"
+    value="{{ alumno[2] }}"
+    name="txtapellidoalum"
+    id="txtapellidoalum"
+  /><br />
+  DNI:
+  <input
+    type="text"
+    value="{{ alumno[3] }}"
+    name="txtdnialumno"
+    id="txtdnialumno"
+  /><br />
+  Email:
+  <input
+    type="Email"
+    value="{{ alumno[4] }}"
+    name="txtemailalumno"
+    id="txtemailalumno"
+  /><br />
+  Representante:
+  <input
+    type="Number"
+    value="{{ alumno[5] }}"
+    name="txtidrepresentante"
+    id="txtidrepresentante"
+  /><br />
+  Curso:
+  <input
+    type="Number"
+    value="{{ alumno[6] }}"
+    name="txtidcurso"
+    id="txtidcurso"
+  /><br />
+  Foto:
+  <input
+    type="file"
+    value="{{ alumno[7] }}"
+    name="txtfotoalumno"
+    id="txtfotoalumno"
+  /><br />
+  <img
+    type="text"
+    class="img-thumbnail"
+    width="100"
+    src="{{url_for('uploads', fotoalumno=alumno[7])}}"
+    alt=""
+  />
+  <br /><br />
+
+  <input type="submit" value="Guardar" />
+</form>
+{% endfor %}
