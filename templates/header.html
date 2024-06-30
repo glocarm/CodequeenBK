@@ -10,40 +10,60 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
     <title>CRUD Codo a Codo</title>
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="static/css/fontawesome.css" />
+    <link rel="stylesheet" href="static/css/templatemo-grad-school.css" />
+    <link rel="stylesheet" href="static/css/owl.css" />
+    <link rel="stylesheet" href="static/css/lightbox.css" />
+    <link rel="stylesheet" href="static/css/templatemo-style.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand">COLEGIO LOS ANGELES</a>
-      <button
-        class="navbar-toggler"
-        data-target="#my-nav"
-        data-
-        toggle="collapse"
-        aria-controls="my-nav"
-        aria-expanded="false"
-        aria-
-        label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div id="my-nav" class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{{url_for('index')}}"
-              >alumno <span class="sr-only">(current)</span></a
+    <header class="main-header clearfix" role="header">
+      <div class="row">
+        <div class="col-6 logo">
+          <img
+            class="img-thumbnail"
+            width="70"
+            src="uploads/logocolegio.png"
+            alt="Logo del Colegio"
+          />
+          <a href="#"><em>Colegio Los Angeles</em></a>
+        </div>
+        <div class="col-6  d-flex-end">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <button
+              class="navbar-toggler"
+              data-target="#my-nav"
+              data-
+              toggle="collapse"
+              aria-controls="my-nav"
+              aria-expanded="false"
+              aria-
+              label="Toggle navigation"
             >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link disabled"
-              href="#"
-              tabindex="-1"
-              aria-disabled="true"
-              >Contacto</a
-            >
-          </li>
-        </ul>
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="my-nav" class="collapse navbar-collapse">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{url_for('index')}}"
+                    >alumno <span class="sr-only">(current)</span></a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    class="nav-link disabled"
+                    href="#"
+                    tabindex="-1"
+                    aria-disabled="true"
+                    >Contacto</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
       </div>
-    </nav>
+    </header>
   </body>
 </html>
