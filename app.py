@@ -50,44 +50,28 @@ def select():
     conn.commit() 
     if datos[0] == 'Admin' and datos[1] == 'super':
         sql = "SELECT * FROM colegio.alumno;"
-        conn = mysql.connection
         cursor = conn.cursor() 
         cursor.execute(sql) 
         db_alumno = cursor.fetchall()
         for alumno in db_alumno:
             print(alumno)
-        cursor.close()  
-        return render_template('colegio/index.html', alumno = db_alumno)
+        cursor.close()   
+        return render_template('colegio/index.html', alumno = db_alumno,  )
   
 #FUNCION PARA MOSTRAR LA DATA DE ALUMNOS 
 @app.route('/index') 
 def index():
     # Creamos una variable que va a contener la consulta SQL para obtener los alumnos:
-    sql = "SELECT * FROM colegio.alumno;"
-   
-    # Conectamos a la base de datos
-    conn = mysql.connection
-    
-    # Almacenaremos lo que devuelva la consulta
+    sql = "SELECT a.*, r.nombrerep, r.apellidorep, c.nombcurso FROM `colegio`.`alumno` a JOIN `colegio`.`representante` r JOIN `colegio`.`curso` c ON a.idrepresentante = r.idrepresentante and a.idcurso= c.idcurso"
+    conn = mysql.connection   
     cursor = conn.cursor() 
-    
-    # Ejecutamos la sentencia SQL
     cursor.execute(sql) 
-    
-    # Copiamos el contenido del cursor a una variable
     db_alumno = cursor.fetchall()
-    
-    # Y mostramos las tuplas por la terminal
-   
     for alumno in db_alumno:
-        print(alumno[0]) 
-    
-    # Cerramos el cursor
-    # 
-    
+        print(alumno) 
     cursor.close()
     # Devolvemos código HTML para ser renderizado
-    return render_template('colegio/index.html', alumno = db_alumno  )
+    return render_template('colegio/index.html', alumno = db_alumno,  )
    
 
 #--------------------------------------------------------------------
