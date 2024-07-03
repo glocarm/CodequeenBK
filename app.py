@@ -64,7 +64,7 @@ def select():
 def index():
     # Creamos una variable que va a contener la consulta SQL para obtener los alumnos:
     sql = "SELECT * FROM colegio.alumno;"
-
+   
     # Conectamos a la base de datos
     conn = mysql.connection
     
@@ -80,15 +80,15 @@ def index():
     # Y mostramos las tuplas por la terminal
    
     for alumno in db_alumno:
-        print(alumno[0])
-
+        print(alumno[0]) 
     
     # Cerramos el cursor
+    # 
+    
     cursor.close()
-
     # Devolvemos código HTML para ser renderizado
-    return render_template('colegio/index.html', alumno = db_alumno)
-
+    return render_template('colegio/index.html', alumno = db_alumno  )
+   
 
 #--------------------------------------------------------------------
 # Función para eliminar un registro de Alumno
@@ -150,9 +150,17 @@ def edit(idalumno):
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM `colegio`.`alumno` WHERE idalumno=%s", (idalumno,))
     alumnos = cursor.fetchall()
-    print(alumnos)
+    #print(alumnos)
+
+    cursor.execute("SELECT  r.nombrerep, r.apellidorep FROM `colegio`.`alumno` a JOIN `colegio`.`representante` r ON a.idrepresentante = r.idrepresentante and a.idalumno =%s", (idalumno,))
+    representantes = cursor.fetchall()
+    print(representantes)
+    
+    cursor.execute("SELECT  c.idcurso , c.nombcurso FROM `colegio`.`alumno` a JOIN `colegio`.`curso` c ON a.idcurso = c.idcurso and a.idalumno =%s", (idalumno,))
+    cursos = cursor.fetchall()
+    
     cursor.close()
-    return render_template('colegio/edit.html', alumnos=alumnos)
+    return render_template('colegio/edit.html', alumnos=alumnos,  representantes=representantes, cursos=cursos)
 
 # FUNCION PARA CREAR UN ALUMNO
 @app.route('/create')
