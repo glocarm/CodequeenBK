@@ -132,29 +132,25 @@ def update():
 def edit(idalumno):
     conn = mysql.connection  # Obtener la conexión a la base de datos
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM `colegio`.`alumno` WHERE idalumno=%s", (idalumno,))
+    cursor.execute("SELECT a.*,r.nombrerep, r.apellidorep, c.idcurso , c.nombcurso FROM `colegio`.`alumno` a JOIN `colegio`.`representante` r JOIN `colegio`.`curso` c ON a.idrepresentante = r.idrepresentante and a.idcurso=c.idcurso and a.idalumno=%s", (idalumno,))
     alumnos = cursor.fetchall()
-    #print(alumnos)
-
-    cursor.execute("SELECT  r.nombrerep, r.apellidorep FROM `colegio`.`alumno` a JOIN `colegio`.`representante` r ON a.idrepresentante = r.idrepresentante and a.idalumno =%s", (idalumno,))
-    representantes = cursor.fetchall()
-    print(representantes)
-    
-    cursor.execute("SELECT  c.idcurso , c.nombcurso FROM `colegio`.`alumno` a JOIN `colegio`.`curso` c ON a.idcurso = c.idcurso and a.idalumno =%s", (idalumno,))
-    cursos = cursor.fetchall()
-    
     cursor.close()
-    return render_template('colegio/edit.html', alumnos=alumnos,  representantes=representantes, cursos=cursos)
+    return render_template('colegio/edit.html', alumnos=alumnos,)
 
 # FUNCION PARA CREAR UN ALUMNO
 @app.route('/create')
 def create():
-    return render_template('colegio/create.html')
+    conn = mysql.connection  # Obtener la conexión a la base de datos
+    cursor = conn.cursor()
+    cursor.execute("SELECT idrepresentante, nombrerep, apellidorep FROM `colegio`.`representante`")
+    representantes = cursor.fetchall()
+    cursor.execute("SELECT idcurso, nombcurso FROM `colegio`.`curso`")
+    cursos = cursor.fetchall()
+    return render_template('colegio/create.html', representantes=representantes, cursos=cursos)
 
 @app.route('/store', methods=['POST'])
 def storage():
     # Recibimos los valores del formulario y los pasamos a variables locales:
-
     _nombalumno = request.form['txtnombalumno']
     _apellidoalum = request.form['txtapellidoalum']
     _dnialumno = request.form['txtdnialumno']

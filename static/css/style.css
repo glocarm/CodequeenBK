@@ -1,3 +1,18 @@
 * {
-    color: red;
+    color: black;
+}
+.nav-link{
+    color: rgb(231, 183, 11);
+    font-size: 14px;
+}
+.nav-link:hover{
+    color: rgb(245, 244, 240);
+}
+.logoh{
+    margin-top: 3;
+    margin-left: 4px;
+}
+.thead th{
+    background-color: #172238;
+    color: #f5a425;
 }

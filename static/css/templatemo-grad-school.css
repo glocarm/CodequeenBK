@@ -22,7 +22,7 @@ a {
 
 a:hover {
 	color: #FC3;
-    text-decoration: none;
+  text-decoration: none;
 }
 
 ul {
@@ -58,7 +58,7 @@ p {
     position: relative;
     font-size: 18px;
     font-weight: 500;
-    color: #fff;
+    color: #dee7f6;
     letter-spacing: 0.5px;
     display: inline-block;
     padding: 15px 20px;
@@ -152,8 +152,8 @@ a.menu-link { display: none; }
 /* Header */
 
 @media screen and (max-width: 1050px) {
-  .main-header .logo {
-      padding-left: 30px!important;
+  .main-header .logoti {
+      padding-left: 30px;
   }
 
   .main-menu {
@@ -174,7 +174,7 @@ a.menu-link { display: none; }
     top: 0;
 }
 
-.main-header .logo {
+.main-header .logoti {
     float: left;
     line-height: 80px;
     padding-left: 60px;
@@ -303,7 +303,7 @@ a.menu-link { display: none; }
     max-width: 100%;
     max-height: 100vh;
     object-fit: cover;
-    z-index: -1;
+    z-index: -1; 
 }
 
 #bg-video::-webkit-media-controls {
@@ -563,8 +563,7 @@ section.why-us {
   display: block;
   margin-bottom: 0.75em;
 }
-#tabs ul .ui-tabs-active {
-}
+
 #tabs ul .ui-tabs-active a {
   color: #f5a425;
 }

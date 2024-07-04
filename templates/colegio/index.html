@@ -8,7 +8,7 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="./static/css/style.css" />
+    <link rel="stylesheet" href="static/css/style.css" />
   </head>
   {% include 'header.html' %}
   <br /> <br /> <br />
@@ -16,8 +16,8 @@
     >Ingresar Nuevo Alumno</a
   ><br /><br />
 
-  <table class="table table-light">
-    <thead class="thead-light">
+  <table class="table">
+    <thead class="thead">
       <tr>
         <th>#</th>
         <th>Foto</th>
@@ -53,12 +53,12 @@
         <td>{{alumno[6]}}</td>
         <td>{{alumno[10]}}</td>
         <td>
-          <a class="btn btn-warning" href="/edit/{{alumno[0]}}">Editar</a>
+          <a class="btn btn-warning" href="/edit/{{alumno[0]}}"><img src="/static/icons/editar.svg"/></a>
           <a
             class="btn btn-danger"
             onclick="return confirm('¿Desea Eliminar los datos del Alumno?')"
             href="/destroy/{{alumno[0]}}"
-            >Eliminar</a
+            ><img src="/static/icons/eliminar.svg"/></a
           >
         </td>
       </tr>

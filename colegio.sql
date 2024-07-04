@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 30-06-2024 a las 23:58:10
+-- Tiempo de generación: 04-07-2024 a las 03:22:58
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -37,6 +37,17 @@ CREATE TABLE `alumno` (
   `idcurso` int(11) NOT NULL,
   `fotoalumno` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `alumno`
+--
+
+INSERT INTO `alumno` (`idalumno`, `nombalumno`, `apellidoalum`, `dnialumno`, `emailalumno`, `idrepresentante`, `idcurso`, `fotoalumno`) VALUES
+(73, 'ANABEL', 'NAVARRO', '99999999', 'CMATA@yahoo.COM', 1, 2, '2024211235Avatar2.png'),
+(74, 'CATALINA', 'ARTEAGA', '88888888', 'F@HOTMAIL.COM', 2, 3, '2024192905Avatar5.png'),
+(76, 'FELIX', 'JUANES', '55555555', 'FRANC@HOTMAIL.COM', 2, 4, '2024195133Avatar4.png'),
+(78, 'ANGELO', 'MORALES', '88888888', 'CMATA@YAHOO.COM', 2, 4, '2024214542Avatar3.png'),
+(79, 'CATALINA', 'NAVARRO', '55555555', 'CATA@GMAIL.COM', 2, 3, '2024214700Avatar5.png');
 
 -- --------------------------------------------------------
 
@@ -194,7 +205,7 @@ ALTER TABLE `representante`
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `idalumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `idalumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de la tabla `curso`
