@@ -53,8 +53,8 @@ def select():
         cursor = conn.cursor() 
         cursor.execute(sql) 
         db_alumno = cursor.fetchall()
-        for alumno in db_alumno:
-            print(alumno)
+        #for alumno in db_alumno:
+         #   print(alumno)
         cursor.close()   
         return render_template('colegio/index.html', alumno = db_alumno,  )
   
@@ -67,8 +67,8 @@ def index():
     cursor = conn.cursor() 
     cursor.execute(sql) 
     db_alumno = cursor.fetchall()
-    for alumno in db_alumno:
-        print(alumno) 
+    #for alumno in db_alumno:
+     #   print(alumno) 
     cursor.close()
     # Devolvemos código HTML para ser renderizado
     return render_template('colegio/index.html', alumno = db_alumno,  )
@@ -94,24 +94,26 @@ def update():
     _dnialumno = request.form['txtdnialumno']
     _emailalumno = request.form['txtemailalumno']
     _idrepresentante = request.form['txtidrepresentante']  
-    _idcurso= request.form['txtidcurso']
+    _idcurso = request.form['txtidcurso']
     _fotoalumno = request.files['txtfotoalumno']
     _idalumno = request.form['txtidalumno']
-    
+   
     conn = mysql.connection
     cursor = conn.cursor()
-    
-    sql = "UPDATE colegio.alumno SET nombalumno=%s, apellidoalum=%s, dnialumno=%s, emailalumno=%s, idrepresentante=%s, idcurso=%s, fotoalumno=%s WHERE idalumno=%s"
-    params = (  _nombalumno, _apellidoalum, _dnialumno, _emailalumno, _idrepresentante,   _idcurso, _fotoalumno, _idalumno )
+
+    # Actualizamos los datos básicos del alumno
+    sql = "UPDATE colegio.alumno SET nombalumno=%s, apellidoalum=%s, dnialumno=%s, emailalumno=%s, idrepresentante=%s, idcurso=%s WHERE idalumno=%s"
+    params = (_nombalumno, _apellidoalum, _dnialumno, _emailalumno, _idrepresentante, _idcurso, _idalumno)
     cursor.execute(sql, params)
-    
-    # Actualización de la foto si se proporciona una nueva
+
+    # Si se proporciona una nueva foto, actualizamos la foto
     if _fotoalumno.filename != '':
         # Guardamos la foto con un nombre único basado en el tiempo
         now = datetime.now()
         tiempo = now.strftime("%Y%H%M%S")
-        nuevoNombreFoto = tiempo + _fotoalumno.filename
-        _fotoalumno.save("uploads/" + nuevoNombreFoto)
+        nuevoNombreFoto = tiempo + "_" + _fotoalumno.filename
+        _fotoalumno.save(os.path.join(app.config['CARPETA'], nuevoNombreFoto))
+       
         # Consultamos la foto anterior para borrarla del servidor
         cursor.execute("SELECT fotoalumno FROM colegio.alumno WHERE idalumno=%s", (_idalumno,))
         fila = cursor.fetchone()
@@ -120,8 +122,10 @@ def update():
             rutaFotoAnterior = os.path.join(app.config['CARPETA'], nombreFotoAnterior)
             if os.path.exists(rutaFotoAnterior):
                 os.remove(rutaFotoAnterior)
-            # Actualizamos la base de datos con el nuevo nombre de la foto
+       
+        # Actualizamos la base de datos con el nuevo nombre de la foto
         cursor.execute("UPDATE colegio.alumno SET fotoalumno=%s WHERE idalumno=%s", (nuevoNombreFoto, _idalumno))
+
     conn.commit()
     cursor.close()
     return redirect('/index')
