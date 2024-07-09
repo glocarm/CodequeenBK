@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, redirect, send_from_directory, jsonify
-
+from flask import Flask, render_template, request,redirect, send_from_directory
 from flask_mysqldb import MySQL
 from datetime import datetime 
 import os
@@ -7,12 +6,11 @@ import os
 # Creamos la aplicación
 app = Flask(__name__) 
 
-
 # Creamos la conexión con la base de datos:
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'colegio'
+app.config['MYSQL_DATABASE_HOST'] = 'sql10.freemysqlhosting.net'
+app.config['MYSQL_DATABASE_USER'] = 'sql10718526'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'Hj7DqEUrTy'
+app.config['MYSQL_DATABASE_DB'] = 'sql10718526'
 
 # Inicializamos la extensión MySQL
 mysql = MySQL(app)
@@ -41,40 +39,30 @@ def consultar():
     return render_template('colegio/iniciosesion.html')  
 
 #ruta para consultar si el usuario que inicia sesión existe en la base de datos e indico la clave correcta.
-@app.route('/select', methods=['GET', 'POST'])
+@app.route('/select', methods=['GET','POST'])
 def select():
-    conn = mysql.connection
-    cursor = conn.cursor()
-
+    conn=mysql.connection
+    cursor=conn.cursor()
     nombusuario = request.args.get('nombusuario')
-    claveusuario = request.args.get('claveusuario')
-
-    sql = "SELECT * FROM colegio.usuario WHERE nombusuario = %s AND claveusuario = %s"
-    cursor.execute(sql, (nombusuario, claveusuario))
-
-    datos = cursor.fetchone()
-    
+    sql = "SELECT * FROM sql10718526.usuario WHERE nombusuario = %s" 
+    cursor.execute(sql, (nombusuario,))
+    datos = cursor.fetchone() 
     conn.commit() 
-    cursor.close()
-    
-    if datos:
-        if datos[0] == 'Admin' and datos[1] == 'super':
-            sql = "SELECT * FROM colegio.alumno;"
-            cursor = conn.cursor() 
-            cursor.execute(sql) 
-            db_alumno = cursor.fetchall()
-            cursor.close()   
-            return redirect('/index')
-        else:
-            return jsonify({'status': 'success', 'message': 'Usuario autenticado', 'data': datos})
-    else:
-        return jsonify({'status': 'fail', 'message': 'Usuario o clave incorrectos'})
+    if datos[0] == 'Admin' and datos[1] == 'super':
+        sql = "SELECT * FROM sql10718526.alumno;"
+        cursor = conn.cursor() 
+        cursor.execute(sql) 
+        db_alumno = cursor.fetchall()
+        #for alumno in db_alumno:
+         #   print(alumno)
+        cursor.close()   
+        return render_template('colegio/index.html', alumno = db_alumno,  )
   
 #FUNCION PARA MOSTRAR LA DATA DE ALUMNOS 
 @app.route('/index') 
 def index():
     # Creamos una variable que va a contener la consulta SQL para obtener los alumnos:
-    sql = "SELECT a.*, r.nombrerep, r.apellidorep, c.nombcurso FROM `colegio`.`alumno` a JOIN `colegio`.`representante` r JOIN `colegio`.`curso` c ON a.idrepresentante = r.idrepresentante and a.idcurso= c.idcurso"
+    sql = "SELECT a.*, r.nombrerep, r.apellidorep, c.nombcurso FROM `sql10718526`.`alumno` a JOIN `sql10718526`.`representante` r JOIN `sql10718526`.`curso` c ON a.idrepresentante = r.idrepresentante and a.idcurso= c.idcurso"
     conn = mysql.connection   
     cursor = conn.cursor() 
     cursor.execute(sql) 
@@ -92,7 +80,7 @@ def index():
 def destroy(idalumno):
     conn = mysql.connection  # Obtener la conexión a la base de datos
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM `colegio`.`alumno` WHERE idalumno=%s", (idalumno,))
+    cursor.execute("DELETE FROM `sql10718526`.`alumno` WHERE idalumno=%s", (idalumno,))
     conn.commit()
     cursor.close()
     return redirect('/index')
@@ -114,7 +102,7 @@ def update():
     cursor = conn.cursor()
 
     # Actualizamos los datos básicos del alumno
-    sql = "UPDATE colegio.alumno SET nombalumno=%s, apellidoalum=%s, dnialumno=%s, emailalumno=%s, idrepresentante=%s, idcurso=%s WHERE idalumno=%s"
+    sql = "UPDATE sql10718526.alumno SET nombalumno=%s, apellidoalum=%s, dnialumno=%s, emailalumno=%s, idrepresentante=%s, idcurso=%s WHERE idalumno=%s"
     params = (_nombalumno, _apellidoalum, _dnialumno, _emailalumno, _idrepresentante, _idcurso, _idalumno)
     cursor.execute(sql, params)
 
@@ -127,7 +115,7 @@ def update():
         _fotoalumno.save(os.path.join(app.config['CARPETA'], nuevoNombreFoto))
        
         # Consultamos la foto anterior para borrarla del servidor
-        cursor.execute("SELECT fotoalumno FROM colegio.alumno WHERE idalumno=%s", (_idalumno,))
+        cursor.execute("SELECT fotoalumno FROM sql10718526.alumno WHERE idalumno=%s", (_idalumno,))
         fila = cursor.fetchone()
         if fila and fila[0] is not None:
             nombreFotoAnterior = fila[0]
@@ -136,7 +124,7 @@ def update():
                 os.remove(rutaFotoAnterior)
        
         # Actualizamos la base de datos con el nuevo nombre de la foto
-        cursor.execute("UPDATE colegio.alumno SET fotoalumno=%s WHERE idalumno=%s", (nuevoNombreFoto, _idalumno))
+        cursor.execute("UPDATE sql10718526.alumno SET fotoalumno=%s WHERE idalumno=%s", (nuevoNombreFoto, _idalumno))
 
     conn.commit()
     cursor.close()
@@ -148,7 +136,7 @@ def update():
 def edit(idalumno):
     conn = mysql.connection  # Obtener la conexión a la base de datos
     cursor = conn.cursor()
-    cursor.execute("SELECT a.*,r.nombrerep, r.apellidorep, c.idcurso , c.nombcurso FROM `colegio`.`alumno` a JOIN `colegio`.`representante` r JOIN `colegio`.`curso` c ON a.idrepresentante = r.idrepresentante and a.idcurso=c.idcurso and a.idalumno=%s", (idalumno,))
+    cursor.execute("SELECT a.*,r.nombrerep, r.apellidorep, c.idcurso , c.nombcurso FROM `sql10718526`.`alumno` a JOIN `sql10718526`.`representante` r JOIN `sql10718526`.`curso` c ON a.idrepresentante = r.idrepresentante and a.idcurso=c.idcurso and a.idalumno=%s", (idalumno,))
     alumnos = cursor.fetchall()
     cursor.close()
     return render_template('colegio/edit.html', alumnos=alumnos,)
@@ -158,9 +146,9 @@ def edit(idalumno):
 def create():
     conn = mysql.connection  # Obtener la conexión a la base de datos
     cursor = conn.cursor()
-    cursor.execute("SELECT idrepresentante, nombrerep, apellidorep FROM `colegio`.`representante`")
+    cursor.execute("SELECT idrepresentante, nombrerep, apellidorep FROM `sql10718526`.`representante`")
     representantes = cursor.fetchall()
-    cursor.execute("SELECT idcurso, nombcurso FROM `colegio`.`curso`")
+    cursor.execute("SELECT idcurso, nombcurso FROM `sql10718526o`.`curso`")
     cursos = cursor.fetchall()
     return render_template('colegio/create.html', representantes=representantes, cursos=cursos)
 
@@ -193,18 +181,17 @@ def storage():
         datos = ( _nombalumno, _apellidoalum, _dnialumno, _emailalumno, _idrepresentante,_idcurso, None )
     
     # Armamos la sentencia SQL que va a almacenar estos datos en la DB:
-    sql = "INSERT INTO colegio.alumno ( idalumno, nombalumno,apellidoalum, dnialumno, emailalumno, idrepresentante, idcurso, fotoalumno ) VALUES ( NULL, %s, %s, %s, %s,  %s, %s, %s );"
+    sql = "INSERT INTO sql10718526.alumno ( idalumno, nombalumno,apellidoalum, dnialumno, emailalumno, idrepresentante, idcurso, fotoalumno ) VALUES ( NULL, %s, %s, %s, %s,  %s, %s, %s );"
     
     conn = mysql.connection  # Nos conectamos a la base de datos 
     cursor = conn.cursor()   # En cursor vamos a realizar las operaciones
     cursor.execute(sql, datos)  # Ejecutamos la sentencia SQL en el cursor
     conn.commit()  # Hacemos el commit
+   
+   
     cursor.close()
     return redirect('/index')
    
-@app.route('/construccion')
-def construccion():
-   return render_template('colegio/construccion.html' )
 
 
 #--------------------------------------------------------------------

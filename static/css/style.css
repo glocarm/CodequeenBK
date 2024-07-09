@@ -1,18 +1,28 @@
-* {
-    color: black;
+body {
+    background-color: #f8f9fa;
 }
-.nav-link{
-    color: rgb(231, 183, 11);
-    font-size: 14px;
+
+.card {
+    border-radius: 1rem;
 }
-.nav-link:hover{
-    color: rgb(245, 244, 240);
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
 }
-.logoh{
-    margin-top: 3;
-    margin-left: 4px;
+
+.btn-primary:hover {
+    background-color: #0056b3;
 }
-.thead th{
-    background-color: #172238;
-    color: #f5a425;
+
+.form-control-user {
+    border-radius: 10rem;
+    padding: 1.5rem 1rem;
+    font-size: 0.8rem;
+}
+
+.imgconst{
+    width: 600px;
+    height: 500px;
+    margin-left: 400px;
 }

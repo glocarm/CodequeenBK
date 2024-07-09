@@ -27,19 +27,65 @@
     <link rel="stylesheet" href="static/css/owl.css" />
     <link rel="stylesheet" href="static/css/lightbox.css" />
     <link rel="stylesheet" href="static/css/templatemo-style.css" />
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/style.css"/>
+    <style>
+      .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .login-card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        background-color: #ffffff;
+      }
+
+      .login-card img {
+        margin-bottom: 20px;
+      }
+
+      .login-card input[type="text"],
+      .login-card input[type="password"] {
+        margin-bottom: 15px;
+      }
+
+      .login-card button {
+        width: 100%;
+      }
+
+      .main-header {
+        background-color: #ffffff;
+        padding: 10px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .main-header .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .main-header .logo img {
+        margin-right: 10px;
+      }
+    </style>
   </head>
   <body class="bg-gradient-primary">
     <!--header-->
-  <header class="main-header clearfix" role="header">
-    <div class="row">
-      <div class="col-6 logo">
+  
+    <div class="container login-container">
+      <div class="col-md-6 login-card">
+      <div class="text-center">
         <img
           class="img-thumbnail logoh"
-          width="70"
+          width="100"
           src="uploads/logocolegio.png"
           alt="Logo del Colegio"
         />
+        
         <a href="#"><em>Colegio Los Angeles</em></a>
       </div>
       <div class="col-6  d-flex-end">

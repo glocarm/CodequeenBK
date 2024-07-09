@@ -1,105 +1,80 @@
-{% include 'header.html' %} {% for alumno in alumnos %}
-
-<form method="post" action="/update" enctype="multipart/form-data">
-  ID:
-  <input
-    type="text"
-    value="{{ alumno[0] }}"
-    name="txtidalumno"
-    id="txtidalumno"
-  />
-  Nombre:
-  <input
-    type="text"
-    value="{{ alumno[1] }}"
-    name="txtnombalumno"
-    id="txtnombalumno"
-  /><br />
-  Apellido:
-  <input
-    type="text"
-    value="{{ alumno[2] }}"
-    name="txtapellidoalum"
-    id="txtapellidoalum"
-  /><br />
-  DNI:
-  <input
-    type="text"
-    value="{{ alumno[3] }}"
-    name="txtdnialumno"
-    id="txtdnialumno"
-  /><br />
-  Email:
-  <input
-    type="Email"
-    value="{{ alumno[4] }}"
-    name="txtemailalumno"
-    id="txtemailalumno"
-  /><br />
-  id Representante:
-  <input
-    type="Number"
-    value="{{ alumno[5] }}"
-    name="txtidrepresentante"
-    id="txtidrepresentante"
-  />
-  Nombre del Representante:
-  <input
-    type="text"
-    value="{{ alumno[8] }}"
-    name="txtnombrerep"
-    id="txtnombrerep"
-    readonly
-  />
-  Apellido del Representante:
-  <input
-    type="text"
-    value="{{ alumno[9] }}"
-    name="txtnombrerep"
-    id="txtnombrerep"
-  />
-  <br />
-  Curso:
-  <input
-    type="Number"
-    value="{{ alumno[6] }}"
-    name="txtidcurso"
-    id="txtidcurso"
-  />
-  Nombre del Curso:
-  <input
-    type="text"
-    value="{{ alumno[11]}}"
-    name="txtnombcurso"
-    id="txtnombcurso"
-    readonly
-  />
-
-  <br />
-  <div class="row">
-    <div class="col-2">
-      Foto Actual:
-      <br />
-      <img
-        type="text"
-        class="img-thumbnail"
-        width="100"
-        src="{{url_for('uploads', fotoalumno=alumno[7])}}"
-        alt=""
-      />
+{% include 'header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos personalizados */
+        .form-container {
+            margin: 30px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .form-group img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    
+    {% for alumno in alumnos %}
+    <div class="container form-container">
+        <form method="post" action="/update" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="txtidalumno">ID:</label>
+                <input type="text" class="form-control" value="{{ alumno[0] }}" name="txtidalumno" id="txtidalumno" readonly>
+            </div>
+            <div class="form-group">
+                <label for="txtnombalumno">Nombre:</label>
+                <input type="text" class="form-control" value="{{ alumno[1] }}" name="txtnombalumno" id="txtnombalumno">
+            </div>
+            <div class="form-group">
+                <label for="txtapellidoalum">Apellido:</label>
+                <input type="text" class="form-control" value="{{ alumno[2] }}" name="txtapellidoalum" id="txtapellidoalum">
+            </div>
+            <div class="form-group">
+                <label for="txtdnialumno">DNI:</label>
+                <input type="text" class="form-control" value="{{ alumno[3] }}" name="txtdnialumno" id="txtdnialumno">
+            </div>
+            <div class="form-group">
+                <label for="txtemailalumno">Email:</label>
+                <input type="email" class="form-control" value="{{ alumno[4] }}" name="txtemailalumno" id="txtemailalumno">
+            </div>
+            <div class="form-group">
+                <label for="txtidrepresentante">ID Representante:</label>
+                <input type="number" class="form-control" value="{{ alumno[5] }}" name="txtidrepresentante" id="txtidrepresentante">
+            </div>
+            <div class="form-group">
+                <label for="txtnombrerep">Nombre del Representante:</label>
+                <input type="text" class="form-control" value="{{ alumno[8] }}" name="txtnombrerep" id="txtnombrerep" readonly>
+            </div>
+            <div class="form-group">
+                <label for="txtnombrerep">Apellido del Representante:</label>
+                <input type="text" class="form-control" value="{{ alumno[9] }}" name="txtapellidore" id="txtapellidorep"readonly >
+            </div>
+            <div class="form-group">
+                <label for="txtidcurso">Curso:</label>
+                <input type="number" class="form-control" value="{{ alumno[6] }}" name="txtidcurso" id="txtidcurso">
+            </div>
+            <div class="form-group">
+                <label for="txtnombcurso">Nombre del Curso:</label>
+                <input type="text" class="form-control" value="{{ alumno[11] }}" name="txtnombcurso" id="txtnombcurso" readonly>
+            </div>
+            <div class="form-group">
+                <label for="txtfotoalumno">Foto Actual:</label>
+                <img src="{{ url_for('uploads', fotoalumno=alumno[7]) }}" alt="" class="img-thumbnail">
+                <input type="file" class="form-control-file mt-2" name="txtfotoalumno" id="txtfotoalumno">
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
     </div>
-    <div class="col-6">
-      <input
-        type="file"
-        value="{{alumno[7]}}"
-        name="txtfotoalumno"
-        id="txtfotoalumno"
-      /><br />
-    </div>
-
-    <br /><br />
-  </div>
-  <input type="submit" value="Guardar" />
-</form>
-
-{% endfor %} {% include 'footer.html' %}
+    {% endfor %}
+    {% include 'footer.html' %}
+    
+    

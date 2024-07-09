@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, redirect, send_from_directory, jsonify
-
+from flask import Flask, render_template, request,redirect, send_from_directory
 from flask_mysqldb import MySQL
 from datetime import datetime 
 import os
@@ -7,12 +6,13 @@ import os
 # Creamos la aplicación
 app = Flask(__name__) 
 
-
 # Creamos la conexión con la base de datos:
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'colegio'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = ''
+app.config['MYSQL_DATABASE_DB'] = 'colegio'
+
+
 
 # Inicializamos la extensión MySQL
 mysql = MySQL(app)
@@ -40,35 +40,39 @@ def inicio():
 def consultar():
     return render_template('colegio/iniciosesion.html')  
 
+#@app.route('/select', methods=['GET','POST'])
+#def select():
+  #  conn=mysql.connection  
+ #   sql = "SELECT * FROM `colegio`.`alumno`;"
+ #   cursor = conn.cursor() 
+  #  cursor.execute(sql) 
+ #   db_alumno = cursor.fetchall()
+ #   for alumno in db_alumno:
+ #       print(alumno)
+  #  conn.commit() 
+ #   cursor.close()   
+  #  return render_template('colegio/index.html', alumno = db_alumno,  )
+
+
 #ruta para consultar si el usuario que inicia sesión existe en la base de datos e indico la clave correcta.
-@app.route('/select', methods=['GET', 'POST'])
+@app.route('/select', methods=['GET','POST'])
 def select():
-    conn = mysql.connection
-    cursor = conn.cursor()
-
+    conn=mysql.connection
+    cursor=conn.cursor()
     nombusuario = request.args.get('nombusuario')
-    claveusuario = request.args.get('claveusuario')
-
-    sql = "SELECT * FROM colegio.usuario WHERE nombusuario = %s AND claveusuario = %s"
-    cursor.execute(sql, (nombusuario, claveusuario))
-
-    datos = cursor.fetchone()
-    
+    sql = "SELECT * FROM colegio.usuario WHERE nombusuario = %s" 
+    cursor.execute(sql, (nombusuario,))
+    datos = cursor.fetchone() 
     conn.commit() 
-    cursor.close()
-    
-    if datos:
-        if datos[0] == 'Admin' and datos[1] == 'super':
-            sql = "SELECT * FROM colegio.alumno;"
-            cursor = conn.cursor() 
-            cursor.execute(sql) 
-            db_alumno = cursor.fetchall()
-            cursor.close()   
-            return redirect('/index')
-        else:
-            return jsonify({'status': 'success', 'message': 'Usuario autenticado', 'data': datos})
-    else:
-        return jsonify({'status': 'fail', 'message': 'Usuario o clave incorrectos'})
+    if datos[0] == 'Admin' and datos[1] == 'super':
+        sql = "SELECT * FROM colegio.alumno;"
+        cursor = conn.cursor() 
+        cursor.execute(sql) 
+        db_alumno = cursor.fetchall()
+        for alumno in db_alumno:
+            print(alumno)
+        cursor.close()   
+        return render_template('colegio/index.html', alumno = db_alumno,  )
   
 #FUNCION PARA MOSTRAR LA DATA DE ALUMNOS 
 @app.route('/index') 
@@ -199,12 +203,11 @@ def storage():
     cursor = conn.cursor()   # En cursor vamos a realizar las operaciones
     cursor.execute(sql, datos)  # Ejecutamos la sentencia SQL en el cursor
     conn.commit()  # Hacemos el commit
+   
+   
     cursor.close()
     return redirect('/index')
    
-@app.route('/construccion')
-def construccion():
-   return render_template('colegio/construccion.html' )
 
 
 #--------------------------------------------------------------------
