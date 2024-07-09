@@ -13,6 +13,7 @@ body {
 
 .btn-primary:hover {
     background-color: #0056b3;
+<<<<<<< HEAD
 }
 
 .form-control-user {
@@ -26,3 +27,12 @@ body {
     height: 500px;
     margin-left: 400px;
 }
+=======
+}
+
+.form-control-user {
+    border-radius: 10rem;
+    padding: 1.5rem 1rem;
+    font-size: 0.8rem;
+}
+>>>>>>> 421cde99ee3e2dad6e33c9588a94181550630739
