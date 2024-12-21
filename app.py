@@ -59,21 +59,12 @@ def select():
     
     if datos:
         if datos[0] == 'Admin' and datos[1] == 'super':
-<<<<<<< HEAD
             sql = "SELECT * FROM colegio.alumno;"
-=======
-            sql = "SELECT * FROM colegio.usuario;"
->>>>>>> 421cde99ee3e2dad6e33c9588a94181550630739
             cursor = conn.cursor() 
             cursor.execute(sql) 
             db_alumno = cursor.fetchall()
             cursor.close()   
-<<<<<<< HEAD
             return redirect('/index')
-=======
-            # redirect('colegio/index.html', alumno=db_alumno)
-            return render_template('colegio/index.html', alumno=db_alumno)
->>>>>>> 421cde99ee3e2dad6e33c9588a94181550630739
         else:
             return jsonify({'status': 'success', 'message': 'Usuario autenticado', 'data': datos})
     else:
@@ -88,8 +79,8 @@ def index():
     cursor = conn.cursor() 
     cursor.execute(sql) 
     db_alumno = cursor.fetchall()
-    #for alumno in db_alumno:
-     #   print(alumno) 
+    for alumno in db_alumno:
+       print(alumno) 
     cursor.close()
     # Devolvemos código HTML para ser renderizado
     return render_template('colegio/index.html', alumno = db_alumno,  )
