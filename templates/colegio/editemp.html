@@ -1,0 +1,67 @@
+{% include 'header.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresa</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos personalizados */
+        .form-container {
+            margin: 30px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .form-group img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <br> <br> <br>
+    <div class="container form-container">
+        <form method="post" action="/updatemp" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="txtidemp">ID:</label>
+                <input type="text" class="form-control" value="{{empresa[0] }}" name="txtidemp" id="txtidemp" readonly>
+            </div>
+            <div class="form-group">
+                <label for="txtrifemp">Rif Empresa:</label>
+                <input type="text" class="form-control" value="{{ empresa[1] }}" name="txtrifemp" id="txtrifemp">
+            </div>
+            <div class="form-group">
+                <label for="txtlogoemp">Logo Actual:</label>
+                <img width=70 src="{{ url_for('static', filename='img/logoemp.png')}}" alt="Logo Empresa" /> 
+                <input type="file" class="form-control-file mt-2" name="txtlogoemp" id="txtlogoemp">
+            </div>
+            <div class="form-group">
+                <label for="txtnombemp">Nombre Empresa:</label>
+                <input type="text" class="form-control" value="{{ empresa[2] }}" name="txtnombemp" id="txtnombemp">
+            </div>
+            <div class="form-group">
+                <label for="txtdiremp">Dirección Empresa:</label>
+                <input type="text" class="form-control" value="{{ empresa[3] }}" name="txtdiremp" id="txtdiremp">
+            </div>
+            <div class="form-group">
+                <label for="txtcedreplegal">Cédula Rep.Legal:</label>
+                <input type="text" class="form-control" value="{{ empresa[4] }}" name="txtcedreplegal" id="txtcedreplegal">
+            </div>
+            <div class="form-group">
+                <label for="txtnombreplegal">Nombre Rep.Legal:</label>
+                <input type="text" class="form-control" value="{{ empresa[5] }}" name="txtnombreplegal" id="txtnombreplegal">
+            </div>
+            <div class="form-group">
+                <label for="txtapellreplegal">Apellido Rep.Legal:</label>
+                <input type="text" class="form-control" value="{{ empresa[6] }}" name="txtapellreplegal" id="txtapellreplegal">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+    {% include 'footer.html' %}
+    
+    

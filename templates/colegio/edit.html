@@ -24,10 +24,12 @@
 <body>
     
     {% for alumno in alumnos %}
-    <div class="container form-container">
+
+    <div class="container form-container">  
         <form method="post" action="/update" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="txtidalumno">ID:</label>
+                <p> {{ alumno }}</p>
                 <input type="text" class="form-control" value="{{ alumno[0] }}" name="txtidalumno" id="txtidalumno" readonly>
             </div>
             <div class="form-group">
@@ -47,28 +49,42 @@
                 <input type="email" class="form-control" value="{{ alumno[4] }}" name="txtemailalumno" id="txtemailalumno">
             </div>
             <div class="form-group">
-                <label for="txtidrepresentante">ID Representante:</label>
-                <input type="number" class="form-control" value="{{ alumno[5] }}" name="txtidrepresentante" id="txtidrepresentante">
-            </div>
+                <label for="txtnombrerep">Datos Representante:</label>
+                <input type="text" class="form-control" value="{{ alumno[9] }} - {{ alumno[10] }} {{ alumno[11] }}" name="txtnombrerep" id="txtnombrerep" readonly>
+            </div> 
+                {% if representante %}
+                    <div class="form-group">
+                        <label for="txtidrepresentante">Representante:</label>
+                        <select class="form-control" name="txtidrepresentante" id="txtidrepresentante">
+                            {% for representante in representante %}
+                                <option value="{{representante[0]}}"
+                                    {% if alumno[9] == representante[0] %}selected{% endif %}>
+                                    {{ representante[0] }} - {{ representante[1] }} {{ representante[2] }}
+                                </option>
+                            {% endfor %}
+                        </select>                 
+                    </div> 
+                {% endif  %}
             <div class="form-group">
-                <label for="txtnombrerep">Nombre del Representante:</label>
-                <input type="text" class="form-control" value="{{ alumno[8] }}" name="txtnombrerep" id="txtnombrerep" readonly>
+                <label for="txtidcurso">Datos Curso:</label>
+                <input type="text" class="form-control" value="{{ alumno[12] }} - {{ alumno[13] }}" name="txtidcurso" id="txtidcurso" readonly>
             </div>
-            <div class="form-group">
-                <label for="txtnombrerep">Apellido del Representante:</label>
-                <input type="text" class="form-control" value="{{ alumno[9] }}" name="txtapellidore" id="txtapellidorep"readonly >
-            </div>
-            <div class="form-group">
-                <label for="txtidcurso">Curso:</label>
-                <input type="number" class="form-control" value="{{ alumno[6] }}" name="txtidcurso" id="txtidcurso">
-            </div>
-            <div class="form-group">
-                <label for="txtnombcurso">Nombre del Curso:</label>
-                <input type="text" class="form-control" value="{{ alumno[11] }}" name="txtnombcurso" id="txtnombcurso" readonly>
-            </div>
+            {% if curso %}
+                <div class="form-group">
+                    <label for="txtidcurso">Nuevo Curso:</label>
+                    <select class="form-control" name="txtidcursonew" id="txtidcursonew">
+                        {% for curso in curso %}
+                            <option value="{{curso[0]}}"
+                                {% if alumno[12] == curso[0] %}selected{% endif %}>
+                                {{ curso[0] }} - {{ curso[1] }} 
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div> 
+            {% endif  %}
             <div class="form-group">
                 <label for="txtfotoalumno">Foto Actual:</label>
-                <img src="{{ url_for('uploads', fotoalumno=alumno[7]) }}" alt="" class="img-thumbnail">
+                <img  width="100" src="{{ url_for('static', filename='fotos/' + alumno[7]) }}"  alt="Foto Actual" class="img-thumbnail">
                 <input type="file" class="form-control-file mt-2" name="txtfotoalumno" id="txtfotoalumno">
             </div>
             <button type="submit" class="btn btn-primary">Guardar</button>

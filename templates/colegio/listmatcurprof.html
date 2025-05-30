@@ -1,0 +1,95 @@
+<html lang="en">
+  <head>
+    <title>Listado de Materias asignadas a un Profesor</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="static/css/style.css" />
+  </head>
+  {% include 'header.html' %}
+  <br />
+  <br />
+  <br /><br />
+  <section>
+    <h1>Lista de Materias Asignadas a un Profesor</h1>
+    <div> <p>Profesor :{{cursomatprof[0][1]}} {{cursomatprof[0][2]}}<br /></p></div>
+   
+    <div><a href="{{url_for('indexprof')}}" class="btn btn-success">Regresar</a
+    ></div>
+  </section>
+  <section class="container_materias">  
+<div>
+  <caption>Materias-Cursos Asignadas</caption>
+  <table class="table">
+    <thead class="thead">
+      <tr>
+        <th>Curso</th>
+        <th>Materia</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cursomatprof in cursomatprof %}
+      <tr>
+        <td>{{cursomatprof[4]}}-{{cursomatprof[5]}}</td>
+        <td>{{cursomatprof[6]}}-{{cursomatprof[7]}}</td>
+        <td>
+          <a
+            class="btn btn-danger" title="Eliminar materia asignada"
+            onclick="return confirm('¿Desea Eliminar Curso-materia asignada al Profesor?')"
+            href="{{url_for('destroymatprof', idprofesor=cursomatprof[0] , idcurso=cursomatprof[4] , idmateria=cursomatprof[6])}}"
+            ><img src="/static/icons/eliminar.svg"
+          /></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div>
+  <caption>Materias-Cursos No Asignadas</caption>
+  <table class="table">
+    <thead class="thead">
+      <tr>
+        <th>Curso</th>
+        <th>Materia</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cursomatnoasignadas in cursomatnoasignadas %}
+      <tr>
+        <td>
+          {{ cursomatnoasignadas[1] }} - {{ cursomatnoasignadas[2] }}
+        </td>
+        <td>
+         {{ cursomatnoasignadas[3] }}-{{ cursomatnoasignadas[4] }}
+        </td>
+        <td>
+          <a
+            class="btn btn-primary"
+            title="Reasignar Materia"
+            onclick="return confirm('¿Desea reasignar materia al Profesor?')"
+            href="{{ url_for('reasignarmatprof', idprofesor=cursomatnoasignadas[0], idcurso=cursomatnoasignadas[1], idmateria=cursomatnoasignadas[3]) }}"
+          >
+          <img src="/static/icons/reasignar.svg"
+          /></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>  
+
+</section>
+
+
+
+
+
+  {% include 'footer.html' %}
+</html>

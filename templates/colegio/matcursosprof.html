@@ -1,0 +1,42 @@
+<html lang="en">
+  <head>
+    <title>CRUD - Listado de Materia por Cursos y profesor</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="static/css/style.css" />
+  </head>
+  {% include 'header.html' %}
+  <br />
+  <br />
+  <br />
+  <form method="POST" action="/matcursosprof/{{ profesor[0]}}">
+    <section>
+      <h1>Materias Por Profesor</h1>
+      <h4>DNI :{{ profesor[3] }} - {{ profesor[1] }} {{ profesor[2] }}</h4>
+      <div>
+        {% for materia in materia %}
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="materia"
+            value="{{ materia[0] }} {{ materia[3] }}"
+            id="materia-{{ materia[0] }}"
+          />
+          <label class="form-check-label" for="materia-{{ materia[0] }}">
+            {{ materia[2] }} - {{ materia[4] }}
+          </label> 
+        </div>
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </section>
+  </form>
+  {% include 'footer.html' %}
+</html>

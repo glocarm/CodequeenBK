@@ -1,0 +1,66 @@
+{% include 'header.html' %}
+
+<div class="container form-container">
+  <br />
+  <br />
+  <br />
+  <br />
+  <form method="post" action="/storemp" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="txtlogoemp">Logo Empresa:</label>
+      <input
+        type="file"
+        class="form-control-file"
+        name="txtlogoemp"
+        id="txtlogoemp"
+      />
+    </div>
+    <div class="form-group">
+      <label for="txtrifemp">Rif Empresa:</label>
+      <input type="text" class="form-control" name="txtrifemp" id="txtrifemp" />
+    </div>
+    <div class="form-group">
+      <label for="txtnombemp">Nombre Empresa:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="txtnombemp"
+        id="txtnombemp"
+      />
+    </div>
+    <div class="form-group">
+      <label for="txtdiremp">Dirección Empresa:</label>
+      <input type="text" class="form-control" name="txtdiremp" id="txtdiremp" />
+    </div>
+    <div class="form-group">
+      <label for="txtcedreplegal">Cédula Rep.Legal:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="txtcedreplegal"
+        id="txtcedreplegal"
+      />
+    </div>
+    <div class="form-group">
+      <label for="txtnombreplegal">Nombre Rep.Legal:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="txtnombreplegal"
+        id="txtnombreplegal"
+      />
+    </div>
+    <div class="form-group">
+      <label for="txtapellreplegal">Apellido Rep.Legal:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="txtapellreplegal"
+        id="txtapellreplegal"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Agregar</button>
+  </form>
+</div>
+
+{% include 'footer.html' %}

@@ -1,0 +1,93 @@
+<html lang="en">
+  <head>
+    <title>Listado de Materias asignadas a un Alumno</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="static/css/style.css" />
+  </head>
+  {% include 'header.html' %}
+  <br />
+  <br />
+  <br /><br />
+  <body>
+    <section>
+      <h1>Lista de Materias Alumno</h1>
+      <div>
+        <p>
+          Alumno : {{cursoalumno[0]}} - {{cursoalumno[1]}} {{cursoalumno[2]}}
+        </p>
+      </div>
+      <div>
+        <p>Curso : {{cursoalumno[6]}} - {{cursoalumno[9]}} <br /></p>
+      </div>
+      <div>
+        <a href="{{url_for('index')}}" class="btn btn-success">Regresar</a>
+      </div>
+    </section>
+    <section class="container_materias">
+      <div>
+        <table class="table">
+          <thead class="thead">
+            <tr>
+              <th>Materia Asignada</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for materias_asignadas in materias_asignadas %}
+            <tr>
+              <td>{{materias_asignadas[0]}} - {{materias_asignadas[1]}}</td>
+              <td>
+                <a
+                  class="btn btn-danger"
+                  title="Eliminar materia asignada"
+                  onclick="return confirm('¿Desea Eliminar materia asignada al alumno?')"
+                  href="{{url_for('destroymatalum',idalumno=cursoalumno[0],idcurso=cursoalumno[6],idmateria=materias_asignadas[0])}}"
+                  ><img src="/static/icons/eliminar.svg"
+                /></a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <table class="table">
+          <thead class="thead">
+            <tr>
+              <th>Materia No Asignada</th>
+              <th>Asignar Materia</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for materias_no_asignadas in materias_no_asignadas %}
+            <tr>
+              <td>
+                {{ materias_no_asignadas[0] }} - {{ materias_no_asignadas[1] }}
+              </td>
+              <td>
+                <a
+                  class="btn btn-primary"
+                  title="Reasignar Materia"
+                  onclick="return confirm('¿Desea reasignar materia al alumno?')"
+                  href="{{ url_for('reasignarmatalum', idalumno=cursoalumno[0], idcurso=cursoalumno[6], idmateria=materias_no_asignadas[0]) }}"
+                >
+                <img src="/static/icons/reasignar.svg"
+                /></a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>  
+    </section>
+  </body>
+  {% include 'footer.html' %}
+</html>

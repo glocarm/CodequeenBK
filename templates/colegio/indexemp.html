@@ -1,0 +1,83 @@
+<html lang="en">
+  <head>
+    <title>Empresa</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="static/css/style.css" />
+  </head>
+  {% include 'header.html' %}
+  <br /> <br /> <br />
+  <br />
+  {% if empresa =='' %}
+    <a href="{{url_for('createmp')}}" class="btn btn-success"
+        >Crear Empresa</a
+    > {% endif %}
+    <br /><br />
+
+  
+  <table class="table">
+    <thead class="thead">
+      <tr>
+        <th>id</th>
+        <th>Rif</th>
+        <th>Logo</th>
+        <th>Nombre</th>
+        <th>Dirección</th>
+        <th>Céd Rep.Legal</th>
+        <th>Nomb. Rep.Legal</th>
+        <th>Apellido Rep.Legal</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{empresa[0]}}</td>
+        <td>{{empresa[1]}}</td>
+        <td>
+            {% if empresa !='' %}
+                <img
+                    class="img-thumbnail"
+                    width="100"
+                    src="{{ url_for('static', filename='img/logoemp.png')}}"
+                    alt="Logo Empresa"
+                /> 
+            {% endif %}
+        </td>
+        <td>{{empresa[2]}}</td>
+        <td>{{empresa[3]}}</td>    
+        <td>{{empresa[4]}}</td>
+        <td>{{empresa[5]}}</td>     
+        <td>{{empresa[6]}}</td>
+        <td>
+          <a class="btn btn-warning" title="Editar datos empresa" href="/editemp/{{empresa[0]}}"><img src="/static/icons/editar.svg"/></a>
+        </td>
+      
+      </tr>
+
+    </tbody>
+  </table>
+
+  {% include 'footer.html' %}
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

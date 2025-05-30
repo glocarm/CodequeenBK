@@ -1,6 +1,6 @@
 <html lang="en">
   <head>
-    <title>CRUD - Listado de Alumnos</title>
+    <title>Alumnos</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -15,7 +15,6 @@
   <br /><a href="{{url_for('create')}}" class="btn btn-success"
     >Ingresar Nuevo Alumno</a
   ><br /><br />
-
   <table class="table">
     <thead class="thead">
       <tr>
@@ -25,41 +24,39 @@
         <th>Apellido</th>
         <th>DNI</th>
         <th>Email</th>
-        <th>id Rep.</th>
-        <th>Nombre Rep.</th>
-        <th>id Curso</th>
-        <th>Nombre Curso</th>
+        <th>Id-Nombre Rep.</th>
+        <th>Id-Nombre Curso</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      {% for alumno in alumno %}
+      {% for alumno in alumno %}    
       <tr>
         <td>{{alumno[0]}}</td>
         <td>
-          <img
-            class="img-thumbnail"
-            width="100"
-            src="uploads/{{alumno[7]}}"
-            alt="foto alumno"
-          />
-        </td>
+          <img  width="100" src="{{ url_for('static', filename='fotos/' + alumno[7]) }}"  alt="Foto Actual" class="img-thumbnail">
+        </td>      
         <td>{{alumno[1]}}</td>
         <td>{{alumno[2]}}</td>
         <td>{{alumno[3]}}</td>
         <td>{{alumno[4]}}</td>
-        <td>{{alumno[5]}}</td>
-        <td>{{alumno[8]}} {{alumno[9]}}</td>
-        <td>{{alumno[6]}}</td>
-        <td>{{alumno[10]}}</td>
+        <td>{{alumno[5]}} - {{alumno[9]}} {{alumno[10]}}</td>
+        <td>{{alumno[6]}} - {{alumno[11]}}</td>
         <td>
-          <a class="btn btn-warning" href="/edit/{{alumno[0]}}"><img src="/static/icons/editar.svg"/></a>
+          <a class="btn btn-warning" title="Editar Datos Alumno" href="/edit/{{alumno[0]}}"><img src="/static/icons/editar.svg"/></a>
           <a
-            class="btn btn-danger"
+            class="btn btn-danger" title="Eliminar Datos Alumno"
             onclick="return confirm('¿Desea Eliminar los datos del Alumno?')"
             href="/destroy/{{alumno[0]}}"
             ><img src="/static/icons/eliminar.svg"/></a
           >
+        <a
+          class="btn btn-info"
+          title="Listar Materias Alumno"
+          onclick="return confirm('¿Desea Listar materias-curso del alumno?')"
+          href="/listarmatalumno/{{alumno[0]}},{{alumno[6]}}"
+          ><img src="/static/icons/listmatcurprof.svg"
+        /></a>
         </td>
       </tr>
       {% endfor %}

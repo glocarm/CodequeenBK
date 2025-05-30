@@ -1,0 +1,62 @@
+{% include 'header.html' %}
+
+<div class="container form-container">
+    <br />
+    <br />
+    <br />
+    <br />
+    <form method="post" action="/storeprof" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="txtnombprof">Nombre:</label>
+            <input type="text" class="form-control" name="txtnombprof" id="txtnombprof">
+        </div>
+        <div class="form-group">
+            <label for="txtapellidoprof">Apellido:</label>
+            <input type="text" class="form-control" name="txtapellidoprof" id="txtapellidoprof">
+        </div>
+        <div class="form-group">
+            <label for="txtdniprof">DNI:</label>
+            <input type="text" class="form-control" name="txtdniprof" id="txtdniprof">
+        </div>
+        <div class="form-group">
+            <label for="txttelefonoprof">Teléfono:</label>
+            <input type="text" class="form-control" name="txttelefonoprof" id="txttelefonoprof">
+        </div>
+        <div class="form-group">
+            <label for="txtemailprof">Email:</label>
+            <input type="email" class="form-control" name="txtemailprof" id="txtemailprof">
+        </div>
+        <div class="form-group">
+            <label for="txtdireccionprof">Dirección:</label>
+            <input type="text" class="form-control" name="txtdireccionprof" id="txtdireccionprof">
+        </div>
+        <div class="form-group">
+            <label for="txtareaprof">Area profesor:</label>
+            <input type="text" class="form-control" name="txtareaprof" id="txtareaprof">
+        </div>
+        
+        <!--<div class="form-group">
+            <label for="txtidrepresentante">Representante:</label>
+            <select class="form-control" name="txtidrepresentante" id="txtidrepresentante">
+                {% for representante in representantes %}
+                <option value="{{ representante[0] }}">
+                    {{ representante[0] }} - {{ representante[1] }} {{ representante[2]}}
+                </option>
+                {% endfor %}
+            </select>
+        </div>-->
+        <!--<div class="form-group">
+            <label for="txtidcurso">Curso:</label>
+            <select class="form-control" name="txtidcurso" id="txtidcurso">
+                {% for curso in cursos %}
+                <option value="{{ curso[0] }}">{{ curso[0] }} - {{ curso[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>-->
+        
+        <button type="submit" class="btn btn-primary">Agregar</button>
+    </form>
+</div>
+
+{% include 'footer.html' %}
+
