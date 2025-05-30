@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <title>CRUD Codo a Codo</title>
+    <title>header</title>
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo-grad-school.css') }}">
@@ -18,28 +18,33 @@
 <header class="main-header clearfix" role="header">
     <div class="row">
         <div class="col-6 logo">
-            <img class="img-thumbnail logoh" width="70" src="/uploads/logocolegio.png" alt="Logo del Colegio">
-            <!--<img class="img-thumbnail logoh" width="70" src="{{ url_for('static', filename='uploads/logocolegio.png') }}" alt="Logo del Colegio">-->
-            <a href="#"><em>Colegio Los Angeles</em></a>
-        </div>
+            <img width=70 src="{{ url_for('static', filename='img/logoemp.png')}}" alt="Logo Empresa" /> 
+            <a href="#"><em>{{empresa[2]}}</em></a>
+        </div> 
         <div class="col-6 d-flex-end">
             <nav class="navbar navbar-expand-lg">
                 <div id="my-nav" class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
+                            <a class="nav-link" href="{{url_for('indexppal')}}">Inicio <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{url_for('indexemp')}}">Empresa <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
                             <a class="nav-link" href="{{ url_for('index') }}">Alumno <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="{{ url_for('construccion') }}">Profesor <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{ url_for('indexprof') }}">Profesor <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="{{ url_for('construccion') }}">Representante <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="{{ url_for('construccion') }}">Curso <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{ url_for('indexcurso') }}">Curso <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('construccion') }}">Materias <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="{{ url_for('indexmateria') }}">Materias <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/">Salir <span class="sr-only">(current)</span></a>
@@ -49,4 +54,5 @@
             </nav>
         </div>
     </div>
+
 </header>
